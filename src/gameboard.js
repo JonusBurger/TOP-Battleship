@@ -3,17 +3,27 @@ const Ship = require("./ship");
 function gameboard() {
     const FIELDHEIGTH = 10;
     const FIELDLENGTH = 10;
-    const ships = {
-        2: undefined,
-        3: undefined,
-        4: undefined, 
-        5: undefined
+    const MAPSHIPS = {
+        20: "Patrol Boat",
+        30: "Submarine",
+        31: "Destroyer",
+        40: "Battleship",
+        50: "Carrier"
     }
+
+    const ships = {
+        "Patrol Boat": undefined,
+        "Submarine": undefined,
+        "Destroyer": undefined,
+        "Battleship": undefined, 
+        "Carrier": undefined
+    }
+
     let gameField = Array(FIELDHEIGTH).fill(Array(FIELDLENGTH).fill(0));
 
 
     function placeShip(length, position, horizontal = false) {
-        if (!(length in ships)) {
+        if (length < 2 || length > 5) {
             return false
         }
 
@@ -22,15 +32,26 @@ function gameboard() {
         }
 
 
+
+        const ship = new Ship(length);
+        let shipID= ship.length*10;
+        // Edge Case for both types of ships with length 3
+        if (shipID === 30 && ships[MAPSHIPS[shipID]]) {
+            shipID++;
+        }
+
+        if (!storeShip(ship, shipID)) {
+            return false
+        }
+
         for (let i = 0; i < length; i++) {
             if (horizontal) {
-                placeMarker([position[0] + i, position[1]], length*10)
+                placeMarker([position[0] + i, position[1]], shipID)
             } else {
-                placeMarker([position[0], position[1] + i], length*10)
+                placeMarker([position[0], position[1] + i], shipID)
             }
         } 
-        const ship = new Ship(length);
-        ships[length] = ship;
+
         return true
     }
 
@@ -84,8 +105,34 @@ function gameboard() {
         gameField[position[0]][position[1]] = marker;
     }
 
+    function storeShip(ship, shipID) {
+        if (!ships[MAPSHIPS[shipID]]) {
+            ships[MAPSHIPS[shipID]] = ship;
+
+            return true
+        } 
+        return false
+    }
+
+    function receiveAttack(position) {
+        let x = position[0];
+        let y = position[1]; 
+        
+        const id = gameField[x][y];
+        if (id === 1) {
+            return false;
+        }
+        if (id >= 20) {
+            ships[MAPSHIPS[id]].hit();
+            gameField[x][y] = 1;
+        }
+
+        return true
+    }
+
     return {
-        placeShip
+        placeShip,
+        receiveAttack
     }
 }
 
