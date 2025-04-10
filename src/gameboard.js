@@ -130,9 +130,30 @@ function gameboard() {
         return true
     }
 
+    function isOver() {
+        for (let key in ships) {
+            let ship = ships[key];
+            // Skip entries with no ship
+            if (!ship) {
+                continue
+            }
+            if (ship.isSunk()) {
+                return false
+            }
+        }
+
+        return true
+    }
+
+    function getGameBoard() {
+        return gameField
+    }
+
     return {
         placeShip,
-        receiveAttack
+        receiveAttack,
+        isOver,
+        getGameBoard
     }
 }
 

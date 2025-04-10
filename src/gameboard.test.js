@@ -45,8 +45,9 @@ test("You should not be able to attack the same spot twice", () => {
 test("Game should tell if all ships are sunk after an attack", () => {
     const gameboardInstance = Gameboard();
     gameboardInstance.placeShip(3, [1,0], horizontal = true);
-    expect(gameboardInstance.receiveAttack([1,0]));
-    expect(gameboardInstance.receiveAttack([1,0]));
-    expect(gameboardInstance.receiveAttack([1,0]));
+    gameboardInstance.receiveAttack([1,0]);
+    gameboardInstance.receiveAttack([2,0]);
+    gameboardInstance.receiveAttack([3,0]);
     // GAME OVER! All ships sunk
+    expect(gameboardInstance.isOver()).toBeTruthy
 })
