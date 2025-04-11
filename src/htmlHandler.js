@@ -11,7 +11,7 @@ function htmlHandler() {
             for (let j = 0; j < FIELDLENGTH; j++) {
                 const gameCell = document.createElement("div");
                 gameCell.classList.add("gameCell");
-                gameCell.classList.add(`${i}${j}`);
+                gameCell.classList.add(`fieldPosition_${i}${j}`);
 
                 gameRow.appendChild(gameCell);
             }
@@ -20,8 +20,18 @@ function htmlHandler() {
         return gameField
     }
 
+    function updateGameField(playerID, position, marker) {
+        const gameFrame = document.getElementById(playerID);
+        const coordinates = `.fieldPosition_${position[0]}${position[1]}`;
+        const gameCell = gameFrame.querySelector(coordinates);
+        gameCell.innerHTML = marker;
+
+        // Add / Remove Class based on marker-typ
+    }
+
     return {
-        initGameField
+        initGameField,
+        updateGameField
     }
 }
 
