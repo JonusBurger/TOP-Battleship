@@ -82,8 +82,24 @@ header {
 .gameFrame {
     display:grid;
     grid-column: 2 / 5;
+    grid-template-columns: 600px 120px 600px;
+    grid-template-rows: 1100px;
+}
+
+.gameField {
+    display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 600px 500px;
+    grid-template-rows: repeat(60px, 10);;
+}
+
+.gameRow {
+    display: flex;
+    flex-direction: row;
+}
+
+.gameCell {
+    width: 58px;
+    height: 58px;
 }
 
 .shipFrame {
@@ -106,6 +122,9 @@ footer {
     border: 1px solid var(--primary-color);
 }
 
+.gameCell {
+    border: 1px solid var(--secondary-color);
+}
 body {
     background-color: var(--background-color);
     color: var(--primary-color);

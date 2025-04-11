@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1744278412608" clover="3.2.0">
-  <project timestamp="1744278412608" name="All files">
-    <metrics statements="79" coveredstatements="72" conditionals="51" coveredconditionals="42" methods="15" coveredmethods="15" elements="145" coveredelements="129" complexity="0" loc="79" ncloc="79" packages="1" files="3" classes="3"/>
+<coverage generated="1744349993488" clover="3.2.0">
+  <project timestamp="1744349993488" name="All files">
+    <metrics statements="96" coveredstatements="89" conditionals="51" coveredconditionals="42" methods="17" coveredmethods="17" elements="164" coveredelements="148" complexity="0" loc="96" ncloc="96" packages="1" files="4" classes="4"/>
     <file name="gameboard.js" path="/home/jbergner/Desktop/TOP/TOP-Battleship/src/gameboard.js">
       <metrics statements="67" coveredstatements="60" conditionals="47" coveredconditionals="38" methods="9" coveredmethods="9"/>
       <line num="1" count="2" type="stmt"/>
@@ -71,6 +71,26 @@
       <line num="149" count="1" type="stmt"/>
       <line num="152" count="10" type="stmt"/>
       <line num="160" count="2" type="stmt"/>
+    </file>
+    <file name="htmlHandler.js" path="/home/jbergner/Desktop/TOP/TOP-Battleship/src/htmlHandler.js">
+      <metrics statements="17" coveredstatements="17" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+      <line num="2" count="1" type="stmt"/>
+      <line num="3" count="1" type="stmt"/>
+      <line num="6" count="1" type="stmt"/>
+      <line num="7" count="1" type="stmt"/>
+      <line num="8" count="1" type="stmt"/>
+      <line num="9" count="10" type="stmt"/>
+      <line num="10" count="10" type="stmt"/>
+      <line num="11" count="10" type="stmt"/>
+      <line num="12" count="100" type="stmt"/>
+      <line num="13" count="100" type="stmt"/>
+      <line num="14" count="100" type="stmt"/>
+      <line num="16" count="100" type="stmt"/>
+      <line num="18" count="10" type="stmt"/>
+      <line num="20" count="1" type="stmt"/>
+      <line num="21" count="1" type="stmt"/>
+      <line num="24" count="1" type="stmt"/>
+      <line num="29" count="1" type="stmt"/>
     </file>
     <file name="player.js" path="/home/jbergner/Desktop/TOP/TOP-Battleship/src/player.js">
       <metrics statements="7" coveredstatements="7" conditionals="1" coveredconditionals="1" methods="3" coveredmethods="3"/>
