@@ -27,6 +27,9 @@ function htmlHandler() {
         gameCell.innerHTML = marker;
 
         // Add / Remove Class based on marker-typ
+        if (marker === 'x') {
+            gameCell.classList.add("ship");
+        }
     }
 
     return {

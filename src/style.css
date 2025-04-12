@@ -129,3 +129,7 @@ body {
     background-color: var(--background-color);
     color: var(--primary-color);
 }
+
+.ship {
+    background-color: var(--ship-color);
+}
