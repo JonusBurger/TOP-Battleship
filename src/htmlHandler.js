@@ -34,10 +34,11 @@ function htmlHandler() {
 
     function updateActivePlayerBanner(player, state) {
         const bannerElement = document.getElementById("infoBanner");
-        console.log(bannerElement)
+        const stateInfoElemen = document.getElementById("stateInfo");
         const playerElements = document.querySelectorAll(".playerBanner")
         const activeElement = bannerElement.querySelector(`.${player}`);
-        activeElement.innerHTML = player + " " + state;
+        activeElement.innerHTML = player + " Turn!";
+        stateInfoElemen.innerHTML = state;
 
         const deactiveElement = playerElements[0] === activeElement ? playerElements[1] : playerElements[0];
         deactiveElement.innerHTML = "";
