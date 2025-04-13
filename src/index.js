@@ -1,11 +1,10 @@
 import "./style.css";
 
-const htmlHandler = require("./htmlHandler");
 const eventHandler = require("./eventhandler");
 
-const htmlHandlerInstance = htmlHandler();
-htmlHandlerInstance.initGameField("player1");
-htmlHandlerInstance.initGameField("player2");
+const eventHandlerInstance = eventHandler();
 
-htmlHandlerInstance.updateGameField("player1", [3,3], "x");
-eventHandler();
+// NS:
+// Fix size for banner Layout
+// Update Init Gamefild Logic to later add Tags of Players
+// Implement Recieve Attack on click of Field

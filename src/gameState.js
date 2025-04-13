@@ -9,8 +9,8 @@ function gameState() {
     }
     let activeState = 0;
 
-    const player1 = new Player("Player1");
-    const player2 = new Player("Player2");
+    const player1 = new Player("player1");
+    const player2 = new Player("player2");
 
     activeState = 1;
 

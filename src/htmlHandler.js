@@ -32,9 +32,21 @@ function htmlHandler() {
         }
     }
 
+    function updateActivePlayerBanner(player, state) {
+        const bannerElement = document.getElementById("infoBanner");
+        console.log(bannerElement)
+        const playerElements = document.querySelectorAll(".playerBanner")
+        const activeElement = bannerElement.querySelector(`.${player}`);
+        activeElement.innerHTML = player + " " + state;
+
+        const deactiveElement = playerElements[0] === activeElement ? playerElements[1] : playerElements[0];
+        deactiveElement.innerHTML = "";
+    }
+
     return {
         initGameField,
-        updateGameField
+        updateGameField,
+        updateActivePlayerBanner
     }
 }
 
