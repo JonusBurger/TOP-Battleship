@@ -12,6 +12,8 @@ function gameState() {
     const player1 = new Player("player1");
     const player2 = new Player("player2");
 
+    const Players = [player1, player2];
+
     activeState = 1;
 
     let activePlayer = player1;
@@ -23,6 +25,10 @@ function gameState() {
 
     function getActivePlayer() {
         return activePlayer
+    }
+
+    function getPlayerList() {
+        return Players
     }
 
     function autoPlaceShips() {
@@ -52,6 +58,7 @@ function gameState() {
 
     return {
         getActivePlayer,
+        getPlayerList,
         switchTurn,
         getGameState,
         autoPlaceShips

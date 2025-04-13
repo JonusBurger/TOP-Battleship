@@ -5,5 +5,5 @@ const eventHandler = require("./eventhandler");
 const eventHandlerInstance = eventHandler();
 
 // NS:
-// Update Init Gamefild Logic to later add Tags of Players
+// Add Logic to access correct html part depending on active player
 // Implement Recieve Attack on click of Field

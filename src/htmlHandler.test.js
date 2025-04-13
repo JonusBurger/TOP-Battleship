@@ -16,5 +16,5 @@ test("A Gamefield should be initialized as a node List", () => {
         '  </div>' +
         '</div>' +
     '</div>';
-    expect(htmlHandlerInstance.initGameField("player1")).toEqual(expect.any(Node))
+    expect(htmlHandlerInstance.initGameField()[0]).toEqual(expect.any(Node))
 })
