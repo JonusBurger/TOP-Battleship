@@ -4,8 +4,7 @@ const htmlHandler = require("./htmlHandler");
 function eventHandler() {
     let gameStateInstance;
     const htmlHandlerInstance = htmlHandler();
-    htmlHandlerInstance.initGameField("player1");
-    htmlHandlerInstance.initGameField("player2");
+    htmlHandlerInstance.initGameField();
     setupHandlers();
     
 
