@@ -6,6 +6,11 @@ function eventHandler() {
     const htmlHandlerInstance = htmlHandler();
     htmlHandlerInstance.initGameField();
     setupHandlers();
+    const playerAreas = document.querySelectorAll(".playerArea");
+    for (let playerArea of playerAreas) {
+        const gameField = playerArea.querySelector(".gameField");
+        gameField.addEventListener("click", (e) => attackOpponent(e, playerArea.id))
+    }
     
 
     function setupHandlers() {
@@ -18,6 +23,7 @@ function eventHandler() {
         console.log(gameStateInstance.getActivePlayer());
         htmlHandlerInstance.updateActivePlayerBanner(gameStateInstance.getActivePlayer().name,
         gameStateInstance.getGameState())
+        gameStateInstance.autoPlaceShips();
     }
 
     function attackOpponent(e, playerID) {
@@ -30,7 +36,15 @@ function eventHandler() {
         if (playerID === gameState.getActivePlayerId()) {
             return
         }
-
+        // Method for fetching ID of field based on Class
+        let fieldID;
+        for (let classElement of e.currentTarget.classList) {
+            if (classElement.contains("fieldPosition_")) {
+                console.log(classElement)
+                const fieldID = classElement.slice(13);
+                console.log(fieldID)
+            }
+        }
     }
     
 }
