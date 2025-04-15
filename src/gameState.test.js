@@ -10,6 +10,11 @@ test("GameState should have a list of active Players", () => {
     expect(gameStateInstance.getPlayerList().length).toBe(2)
 })
 
+test("GameState should return the id of the active Placer", () => {
+    const gameStateInstance = gameState();
+    expect(gameStateInstance.getActivePlayerId()).toBe("player1");
+})
+
 test("GameState should keep track of active player", () => {
     const gameStateInstance = gameState();
     gameStateInstance.switchTurn();

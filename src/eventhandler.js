@@ -20,6 +20,18 @@ function eventHandler() {
         gameStateInstance.getGameState())
     }
 
+    function attackOpponent(e, playerID) {
+        if (!gameStateInstance.getGameState() === "Attack opponent!") {
+            return
+        }
+        if (!e.currentTarget.classList.contains("gameCell")) {
+            return
+        }
+        if (playerID === gameState.getActivePlayerId()) {
+            return
+        }
+
+    }
     
 }
 
