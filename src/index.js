@@ -5,5 +5,6 @@ const eventHandler = require("./eventhandler");
 const eventHandlerInstance = eventHandler();
 
 // NS:
-// Implement Recieve Attack on click of Field
-// -> currently stuck here, check implementation an gameState handling
+// Check if Game is over -> End Game
+// -> check if Ship is sunk
+// -> Start display of health of ships
