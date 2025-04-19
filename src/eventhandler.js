@@ -50,10 +50,8 @@ function eventHandler() {
         // Method for fetching ID of field based on Class
         let fieldID;
         for (let classElement of e.currentTarget.classList) {
-            if (classElement.contains("fieldPosition_")) {
-                console.log(classElement)
-                const fieldID = classElement.slice(13);
-                console.log(fieldID)
+            if (classElement.includes("fieldPosition_")) {
+                const fieldID = classElement.slice(14);
             }
         }
     }

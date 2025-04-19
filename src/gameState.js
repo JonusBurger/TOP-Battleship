@@ -27,6 +27,10 @@ function gameState() {
         return activePlayer
     }
 
+    function getInactivePlayer() {
+        return Players[0] === activePlayer ? player2 : player1
+    }
+
     function getActivePlayerId() {
         return activePlayer === player1 ? "player1" : "player2"
     }
@@ -62,6 +66,7 @@ function gameState() {
 
     return {
         getActivePlayer,
+        getInactivePlayer,
         getActivePlayerId,
         getPlayerList,
         switchTurn,

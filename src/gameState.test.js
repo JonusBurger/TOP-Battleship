@@ -32,3 +32,15 @@ test("After ships are placed, game should switch to gameState Attack opponent", 
     expect(gameStateInstance.getGameState()).toBe("Attack opponent!");
 })
 
+test("Gamestate should return an inactive player", () => {
+    const gameStateInstance = gameState();
+    expect(gameStateInstance.getInactivePlayer().name).toBe("player2");
+})
+
+test("Gamestate should keep track of both active and inactive player", () => {
+    const gameStateInstance = gameState();
+    expect(gameStateInstance.getInactivePlayer()).not.toBe(gameStateInstance.getActivePlayer());
+})
+
+
+
