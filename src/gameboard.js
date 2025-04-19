@@ -19,7 +19,7 @@ function gameboard() {
         "Carrier": undefined
     }
 
-    let gameField = Array(FIELDHEIGTH).fill(Array(FIELDLENGTH).fill(0));
+    let gameField = Array.from({ length: FIELDHEIGTH }, () => Array(FIELDLENGTH).fill(0));
 
 
     function placeShip(length, position, horizontal = false) {
@@ -120,11 +120,15 @@ function gameboard() {
         
         const id = gameField[x][y];
         if (id === 1) {
+            console.log("Invalid field!")
             return false;
         }
         if (id >= 20) {
             ships[MAPSHIPS[id]].hit();
             gameField[x][y] = 1;
+            console.log("Hit ship!")
+        } else {
+            console.log("Nothing Hit!")
         }
 
         return true

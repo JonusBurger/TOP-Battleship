@@ -35,6 +35,10 @@ function gameState() {
         return activePlayer === player1 ? "player1" : "player2"
     }
 
+    function getInactivePlayerId() {
+        return activePlayer === player1 ? "player2" : "player1"
+    }
+
     function getPlayerList() {
         return Players
     }
@@ -45,13 +49,13 @@ function gameState() {
             const player1GameBoard = player1.gameBoard;
     
     
-            for (let i = 0; i < 6; i++) {
-                player1GameBoard.placeShip(SIZESHIPS[i], [i,3], true);
+            for (let i = 0; i < SIZESHIPS.length; i++) {
+                player1GameBoard.placeShip(SIZESHIPS[i], [3,i*2], true);
             }
             const player2GameBoard = player2.gameBoard;
     
-            for (let i = 0; i < 6; i++) {
-                player2GameBoard.placeShip(SIZESHIPS[i], [i,3], true);
+            for (let i = 0; i < SIZESHIPS.length; i++) {
+                player2GameBoard.placeShip(SIZESHIPS[i], [3,i*2], true);
             }
     
             activeState = 2;
@@ -68,6 +72,7 @@ function gameState() {
         getActivePlayer,
         getInactivePlayer,
         getActivePlayerId,
+        getInactivePlayerId,
         getPlayerList,
         switchTurn,
         getGameState,

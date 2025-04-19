@@ -33,6 +33,23 @@ function htmlHandler() {
         }
     }
 
+    function updateEntireField(playerID, player) {
+        const gameFrame = document.getElementById(playerID);
+        const gameField = player.getGameBoard();
+        for (let i = 0; i < FIELDHEIGTH; i++) {
+            for (let j = 0; j < FIELDLENGTH; j++) {
+                const gameCell = gameFrame.querySelector(`.fieldPosition_${i}${j}`)
+                const fieldValue = gameField[i][j];
+                if (fieldValue >= 20) {
+                    gameCell.innerHTML = "X";
+                }
+                if (fieldValue === 1) {
+                    gameCell.innerHTML = "O";
+                }
+            }
+        }
+    }
+
     function updateActivePlayerBanner(player, state) {
         const bannerElement = document.getElementById("infoBanner");
         const stateInfoElemen = document.getElementById("stateInfo");
@@ -48,6 +65,7 @@ function htmlHandler() {
     return {
         initGameField,
         updateGameField,
+        updateEntireField,
         updateActivePlayerBanner
     }
 }

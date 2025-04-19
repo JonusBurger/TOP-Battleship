@@ -28,9 +28,12 @@ function eventHandler() {
     function startGame() {
         gameStateInstance = gameState();
         console.log(gameStateInstance.getActivePlayer());
+        console.log(gameStateInstance.getActivePlayer().getGameBoard());
         htmlHandlerInstance.updateActivePlayerBanner(gameStateInstance.getActivePlayer().name,
         gameStateInstance.getGameState())
+        
         gameStateInstance.autoPlaceShips();
+        console.log(gameStateInstance.getActivePlayer().getGameBoard());
 
         setupAttackHandlers();
     }
@@ -49,11 +52,14 @@ function eventHandler() {
         }
         // Method for fetching ID of field based on Class
         let fieldID;
+        const playerHit = gameStateInstance.getInactivePlayer();
         for (let classElement of e.currentTarget.classList) {
             if (classElement.includes("fieldPosition_")) {
                 const fieldID = classElement.slice(14);
+                playerHit.gameBoard.receiveAttack(fieldID);
             }
         }
+        htmlHandlerInstance.updateEntireField(playerID, playerHit);
     }
     
 }
