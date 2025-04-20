@@ -64,7 +64,6 @@ function htmlHandler() {
     
     function displayPlayerShips(player, playerID) {
         const ships = player.gameBoard.getShips();
-        console.log(ships)
         const gameFrame = document.getElementById(playerID);
         const shipFrame = gameFrame.querySelector(".shipFrame");
         const shipTemplate = document.getElementById("shipTemplate");
@@ -75,12 +74,14 @@ function htmlHandler() {
             }
 
             const shipRow = shipTemplate.cloneNode(true);
+            shipRow.id = "";
             const shipName = shipRow.querySelector(".shipName");
             shipName.innerHTML = `<p>${key}</p>`;
-            const shipHealth = shipTemplate.querySelector(".shipHealth");
+            const shipHealth = shipRow.querySelector(".shipHealth");
             for (let i = 0; i < ship.length; i++) {
                 const shipCell = document.createElement("div");
-                if (i < ship.hits) {
+                shipCell.classList.add("activeCell");
+                if (i < ship.getHits()) {
                     shipCell.classList.add("damage");
                 }
                 shipHealth.appendChild(shipCell);

@@ -64,7 +64,7 @@ header {
 
 .main {
     display: grid;
-    grid-template-columns: 1fr 600px 120px 600px 1fr;
+    grid-template-columns: 1fr 580px 120px 580px 1fr;
     grid-template-rows: 70px minmax(1100px, 1fr);
 }
 
@@ -82,17 +82,40 @@ header {
     grid-template-rows: 1fr;
 }
 
+#stateInfo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.playerBanner {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+
+#stateInfo + .playerBanner {
+    justify-content: end;
+}
+
 .gameFrame {
     display:grid;
     grid-column: 2 / 5;
-    grid-template-columns: 600px 120px 600px;
+    grid-template-columns: auto 120px auto;
     grid-template-rows: 1100px;
+}
+
+.playerArea {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 600px 250px;
+    gap: 0;
 }
 
 .gameField {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(60px, 10);;
+    grid-template-rows: repeat(10, 60px);;
 }
 
 .gameRow {
@@ -108,14 +131,40 @@ header {
 .shipFrame {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(96px, 5);
+    grid-template-rows: repeat(5, auto)
 }
 
-.ship {
+.ships {
     display: flex;
     flex-direction: column;
 }
 
+.activeShip {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+}
+
+.shipName {
+    display: flex;
+    align-items: center;
+}
+
+.shipHealth {
+    display: grid;
+    grid-template-columns: repeat(5, calc(280px/5));
+    grid-template-rows: 1fr;
+}
+
+.chat {
+    display: flex;
+    justify-content: center;
+}
+
+button {
+    width: 50px;
+    height: 30px;
+}
 footer {
     position: absolute;
     bottom: 0;
@@ -124,6 +173,10 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.template {
+    display: none;
 }
 
 .main > *{
@@ -140,4 +193,13 @@ body {
 
 .ship {
     background-color: var(--ship-color);
+}
+
+.activeCell {
+    border: 1px solid var(--primary-color);
+    background-color: var(--secondary-color);
+}
+
+.damage {
+    background-color: var(--tertary-color);
 }
