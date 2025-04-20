@@ -47,7 +47,8 @@ test("Game should tell if all ships are sunk after an attack", () => {
     gameboardInstance.placeShip(3, [1,0], horizontal = true);
     gameboardInstance.receiveAttack([1,0]);
     gameboardInstance.receiveAttack([2,0]);
+    expect(gameboardInstance.isOver()).toBeFalsy();
     gameboardInstance.receiveAttack([3,0]);
     // GAME OVER! All ships sunk
-    expect(gameboardInstance.isOver()).toBeTruthy
+    expect(gameboardInstance.isOver()).toBeTruthy();
 })

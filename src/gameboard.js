@@ -126,7 +126,10 @@ function gameboard() {
         if (id >= 20) {
             ships[MAPSHIPS[id]].hit();
             gameField[x][y] = 1;
-            console.log("Hit ship!")
+            console.log("Hit a ship!")
+            if (ships[MAPSHIPS[id]].isSunk()) {
+                console.log("Ship sunk!")
+            }
         } else {
             console.log("Nothing Hit!")
         }
@@ -141,7 +144,7 @@ function gameboard() {
             if (!ship) {
                 continue
             }
-            if (ship.isSunk()) {
+            if (!ship.isSunk()) {
                 return false
             }
         }

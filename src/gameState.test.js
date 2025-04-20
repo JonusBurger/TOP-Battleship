@@ -42,5 +42,18 @@ test("Gamestate should keep track of both active and inactive player", () => {
     expect(gameStateInstance.getInactivePlayer()).not.toBe(gameStateInstance.getActivePlayer());
 })
 
+test("Gamestate should know when the game is Over", () => {
+    const gameStateInstance = gameState();
+    gameStateInstance.getActivePlayer().gameBoard.placeShip(3, [2,2]);
+    gameStateInstance.switchTurn();
+    gameStateInstance.getActivePlayer().gameBoard.placeShip(3, [2,2]);
+    gameStateInstance.activeState = 2;
+    gameStateInstance.attackMove([2,2]);
+    gameStateInstance.attackMove([2,2]);
+    gameStateInstance.attackMove([2,3]);
+    gameStateInstance.attackMove([2,3]);
+    expect(gameStateInstance.attackMove([2,4])).toBeTruthy();
+})
+
 
 

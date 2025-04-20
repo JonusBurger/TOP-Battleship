@@ -50,23 +50,16 @@ function eventHandler() {
             console.log("Wrong Player!")
             return
         }
-        const playerHit = gameStateInstance.getInactivePlayer();
-        let fieldID;
-        let validMove;
         // Method for fetching ID of field based on Class
         for (let classElement of e.currentTarget.classList) {
             if (classElement.includes("fieldPosition_")) {
-                const fieldID = classElement.slice(14);
-                validMove = playerHit.gameBoard.receiveAttack(fieldID);
+                fieldID = classElement.slice(14);
+                gameStateInstance.attackMove(fieldID);
             }
         }
-        htmlHandlerInstance.updateEntireField(playerID, playerHit);
-        if (validMove) {
-            gameStateInstance.switchTurn();
-            htmlHandlerInstance.updateActivePlayerBanner(gameStateInstance.getActivePlayer().name,
-            gameStateInstance.getGameState())    
-        }
-    
+        htmlHandlerInstance.updateEntireField(playerID, gameStateInstance.getActivePlayer());
+        htmlHandlerInstance.updateActivePlayerBanner(gameStateInstance.getActivePlayer().name,
+            gameStateInstance.getGameState()) 
     }
     
 }

@@ -68,6 +68,22 @@ function gameState() {
         return GAMESTATES[activeState];
     }
 
+    function attackMove(position) {
+        const playerHit = getInactivePlayer();
+        const validMove = playerHit.gameBoard.receiveAttack(position);
+
+        if (validMove) {
+            if (playerHit.gameBoard.isOver()) {
+                activeState = 3;
+                console.log("Game Over!")
+                return true
+            }
+            switchTurn();
+        }
+
+        return false
+    }
+
     return {
         getActivePlayer,
         getInactivePlayer,
@@ -76,7 +92,8 @@ function gameState() {
         getPlayerList,
         switchTurn,
         getGameState,
-        autoPlaceShips
+        autoPlaceShips,
+        attackMove
     }
 }
 

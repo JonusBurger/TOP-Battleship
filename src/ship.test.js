@@ -8,9 +8,9 @@ test("A ship needs a length", () => {
 test("A ship should only sink after being hit at the number of its length", () => {
     const TESTLENGTH = 3
     const ship = new Ship(TESTLENGTH);
-    expect(ship.isSunk()).toBe(false);
+    expect(ship.isSunk()).toBeFalsy();
     for (let i = 0; i < TESTLENGTH; i++) {
         ship.hit();
     }
-    expect(ship.isSunk()).toBe(true);
+    expect(ship.isSunk()).toBeTruthy();
 })
