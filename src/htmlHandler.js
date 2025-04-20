@@ -61,12 +61,41 @@ function htmlHandler() {
         const deactiveElement = playerElements[0] === activeElement ? playerElements[1] : playerElements[0];
         deactiveElement.innerHTML = "";
     }
+    
+    function displayPlayerShips(player, playerID) {
+        const ships = player.gameBoard.getShips();
+        console.log(ships)
+        const gameFrame = document.getElementById(playerID);
+        const shipFrame = gameFrame.querySelector(".shipFrame");
+        const shipTemplate = document.getElementById("shipTemplate");
+        shipFrame.replaceChildren();
+        for (const [key, ship] of Object.entries(ships)) {
+            if (!ship) {
+                continue
+            }
+
+            const shipRow = shipTemplate.cloneNode(true);
+            const shipName = shipRow.querySelector(".shipName");
+            shipName.innerHTML = `<p>${key}</p>`;
+            const shipHealth = shipTemplate.querySelector(".shipHealth");
+            for (let i = 0; i < ship.length; i++) {
+                const shipCell = document.createElement("div");
+                if (i < ship.hits) {
+                    shipCell.classList.add("damage");
+                }
+                shipHealth.appendChild(shipCell);
+            }
+            shipRow.classList.add("activeShip");
+            shipFrame.appendChild(shipRow);
+        }
+    }
 
     return {
         initGameField,
         updateGameField,
         updateEntireField,
-        updateActivePlayerBanner
+        updateActivePlayerBanner,
+        displayPlayerShips
     }
 }
 

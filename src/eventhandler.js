@@ -60,6 +60,7 @@ function eventHandler() {
         htmlHandlerInstance.updateEntireField(playerID, gameStateInstance.getActivePlayer());
         htmlHandlerInstance.updateActivePlayerBanner(gameStateInstance.getActivePlayer().name,
             gameStateInstance.getGameState()) 
+        htmlHandlerInstance.displayPlayerShips(gameStateInstance.getActivePlayer(), playerID);
     }
     
 }

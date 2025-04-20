@@ -131,7 +131,8 @@ function gameboard() {
                 console.log("Ship sunk!")
             }
         } else {
-            console.log("Nothing Hit!")
+            gameField[x][y] = 2;
+            console.log("Nothing Hit!");
         }
 
         return true
@@ -156,11 +157,16 @@ function gameboard() {
         return gameField
     }
 
+    function getShips() {
+        return ships
+    }
+
     return {
         placeShip,
         receiveAttack,
         isOver,
-        getGameBoard
+        getGameBoard,
+        getShips
     }
 }
 
