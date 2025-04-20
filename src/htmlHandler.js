@@ -42,9 +42,11 @@ function htmlHandler() {
                 const fieldValue = gameField[i][j];
                 if (fieldValue >= 20) {
                     gameCell.innerHTML = "X";
+                    
                 }
                 if (fieldValue === 1) {
                     gameCell.innerHTML = "O";
+                    gameCell.classList.add("damage");
                 }
             }
         }
