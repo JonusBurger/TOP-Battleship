@@ -33,20 +33,48 @@ function htmlHandler() {
         }
     }
 
-    function updateEntireField(playerID, player) {
-        const gameFrame = document.getElementById(playerID);
+    function updateEntireField(playerID, player, enemyPlayer) {
+        displayActivePlayerField(playerID, player);
+        displayEnemyField(playerID, enemyPlayer);
+    }
+
+    function displayEnemyField(playerID, enemyPlayer) {
+        const playerAreas = document.querySelectorAll(".playerArea")
+        for (let playerArea of playerAreas) {
+            if (playerArea.id != playerID) {
+                const gameField = enemyPlayer.getGameBoard();
+                for (let i = 0; i < FIELDHEIGTH; i++) {
+                    for (let j = 0; j < FIELDLENGTH; j++) {
+                        const gameCell = playerArea.querySelector(`.fieldPosition_${i}${j}`)
+                        const fieldValue = gameField[i][j];
+                        if (fieldValue === 1) {
+                            gameCell.innerHTML = "X";
+                            gameCell.classList.add("damage");
+                        } else if (fieldValue === 2) {
+                            gameCell.innerHTML = "X";
+                        } else if (fieldValue >= 20) {
+                            gameCell.classList.remove("ship");
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    function displayActivePlayerField(playerID, player) {
+        const playerArea = document.getElementById(playerID)
         const gameField = player.getGameBoard();
         for (let i = 0; i < FIELDHEIGTH; i++) {
             for (let j = 0; j < FIELDLENGTH; j++) {
-                const gameCell = gameFrame.querySelector(`.fieldPosition_${i}${j}`)
+                const gameCell = playerArea.querySelector(`.fieldPosition_${i}${j}`)
                 const fieldValue = gameField[i][j];
-                if (fieldValue >= 20) {
-                    gameCell.innerHTML = "X";
-                    
-                }
                 if (fieldValue === 1) {
-                    gameCell.innerHTML = "O";
+                    gameCell.innerHTML = "X";
                     gameCell.classList.add("damage");
+                } else if (fieldValue === 2) {
+                    gameCell.innerHTML = "X";
+                } else if (fieldValue >= 20) {
+                    gameCell.classList.add("ship");
                 }
             }
         }
@@ -59,6 +87,20 @@ function htmlHandler() {
         const activeElement = bannerElement.querySelector(`.${player}`);
         activeElement.innerHTML = player + " Turn!";
         stateInfoElemen.innerHTML = state;
+        const deactiveElement = playerElements[0] === activeElement ? playerElements[1] : playerElements[0];
+        deactiveElement.innerHTML = "";
+    }
+
+    function updateStateInfo(state) {
+        const stateInfoElement = document.getElementById("stateInfo");
+        stateInfoElement.innerHTML = state;
+    }
+
+    function updateActivePlayer(player) {
+        const bannerElement = document.getElementById("infoBanner");
+        const playerElements = document.querySelectorAll(".playerBanner")
+        const activeElement = bannerElement.querySelector(`.${player}`);
+        activeElement.innerHTML = player + " Turn!";
 
         const deactiveElement = playerElements[0] === activeElement ? playerElements[1] : playerElements[0];
         deactiveElement.innerHTML = "";
@@ -93,12 +135,26 @@ function htmlHandler() {
         }
     }
 
+    function displayGameAction(gameActionInfo) {
+        const gameAction = document.getElementById("gameAction");
+        gameAction.innerHTML = gameActionInfo;
+    }
+
+    function displayGameState(gameStateInfo) {
+        const gameState = document.getElementById("gameState");
+        gameState.innerHTML = gameStateInfo;
+    }
+
     return {
         initGameField,
         updateGameField,
         updateEntireField,
+        updateActivePlayer,
+        updateStateInfo,
         updateActivePlayerBanner,
-        displayPlayerShips
+        displayPlayerShips,
+        displayGameState,
+        displayGameAction
     }
 }
 

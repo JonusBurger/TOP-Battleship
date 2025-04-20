@@ -1,4 +1,5 @@
 const Player = require("./player");
+const infoLogger = require("./infoLogger");
 
 function gameState() {
     const GAMESTATES = {
@@ -7,6 +8,9 @@ function gameState() {
         2: "Attack opponent!",
         3: "Winner determined"
     }
+
+    let eventLoggerGameState;
+
     let activeState = 0;
 
     const player1 = new Player("player1");
@@ -17,10 +21,23 @@ function gameState() {
     activeState = 1;
 
     let activePlayer = player1;
+    let placeCurser;
+
+    const infoLoggerInstance = infoLogger();
     
 
     function switchTurn() {
         activePlayer = activePlayer === player1 ? player2 : player1;
+
+        // Handle Information Flow for Ship Placement
+        if (activeState === 1) {
+            const ships = activePlayer.gameBoard.getShips();
+            for (const [key, ship] of Object.entries(ships)) {
+                if (!ship) {
+                    infoLoggerInstance(`place Ship ${key} (size ${activePlayer.gameBoard.getLengthOfShip(key)})`);
+                }
+            }
+        }
     }
 
     function getActivePlayer() {
@@ -41,6 +58,33 @@ function gameState() {
 
     function getPlayerList() {
         return Players
+    }
+
+    function placeShip(position) {
+        let validMove;
+        const ships = activePlayer.gameBoard.getShips();
+        for (const [key, ship] of Object.entries(ships)) {
+            if (!ship) {
+                if (!placeCurser) {
+                    placeCurser = position;
+                    return false
+                }
+                const horizontal = placeCurser[1] > position[1] ? true : false;
+                validMove = activePlayer.gameBoard.placeShip(placeCurser, horizontal);
+                if (validMove) {
+                    switchTurn();
+                    placeCurser = undefined;
+                }
+                
+                return validMove
+            }
+        }
+        if (eventLoggerGameState === "player1 1" || eventLoggerGameState === "player2 1") {
+            activeState = 2;
+        } else {
+            eventLoggerGameState = getActivePlayerId() + " " + activeState;
+        }
+        // STUCK HERE WITH LOGIC HOW TO HANDLE CHANGE TO NEXT STATE
     }
 
     function autoPlaceShips() {
@@ -92,6 +136,7 @@ function gameState() {
         getPlayerList,
         switchTurn,
         getGameState,
+        placeShip,
         autoPlaceShips,
         attackMove
     }
