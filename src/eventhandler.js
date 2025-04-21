@@ -98,10 +98,18 @@ function eventHandler() {
                 TurnSwitch = gameStateInstance.placeShip(fieldID);
             }
         }
-        htmlHandlerInstance.updateEntireField(playerID, gameStateInstance.getActivePlayer(), gameStateInstance.getInactivePlayer());
-        infoLoggerInstance.updateState(gameStateInstance.getGameState());
-        infoLoggerInstance.updateActivePlayer(gameStateInstance.getActivePlayer().name);
-        htmlHandlerInstance.displayPlayerShips(gameStateInstance.getActivePlayer(), playerID);
+
+        // CHECK HERE I PLACE SHIP IS FINISHED
+        if (gameStateInstance.checkPlayerShipsState()) {
+            gameStateInstance.activeState = 2;
+            setupAttackHandlers();
+        } else {
+            htmlHandlerInstance.updateEntireField(playerID, gameStateInstance.getActivePlayer(), gameStateInstance.getInactivePlayer());
+            infoLoggerInstance.updateState(gameStateInstance.getGameState());
+            infoLoggerInstance.updateActivePlayer(gameStateInstance.getActivePlayer().name);
+            htmlHandlerInstance.displayPlayerShips(gameStateInstance.getActivePlayer(), playerID);
+        }
+ 
     }
     
 }

@@ -175,13 +175,23 @@ function gameboard() {
         return ships
     }
 
+    function checkIfAllShipsPlaced() {
+        for (let ship of ships) {
+            if (!ship) {
+                return false
+            }
+            return true
+        }
+    }
+
     return {
         placeShip,
         receiveAttack,
         isOver,
         getGameBoard,
         getShips,
-        getLengthOfShip
+        getLengthOfShip,
+        checkIfAllShipsPlaced
     }
 }
 

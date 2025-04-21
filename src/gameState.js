@@ -9,8 +9,6 @@ function gameState() {
         3: "Winner determined"
     }
 
-    let eventLoggerGameState;
-
     let activeState = 0;
 
     const player1 = new Player("player1");
@@ -79,11 +77,6 @@ function gameState() {
                 return validMove
             }
         }
-        if (eventLoggerGameState === "player1 1" || eventLoggerGameState === "player2 1") {
-            activeState = 2;
-        } else {
-            eventLoggerGameState = getActivePlayerId() + " " + activeState;
-        }
         // STUCK HERE WITH LOGIC HOW TO HANDLE CHANGE TO NEXT STATE
     }
 
@@ -106,6 +99,16 @@ function gameState() {
         } else {
             throw new Error("Currently in the Wrong game State!");   
         }
+    }
+
+    function checkPlaceShipsState() {
+        // return true only when each player has placed all of his ships
+        for (let player of Players) {
+            if (!player.gameBoard.checkIfAllShipsPlaced()) {
+                return false
+            }
+        }
+        return true
     }
 
     function getGameState() {
@@ -138,6 +141,7 @@ function gameState() {
         getGameState,
         placeShip,
         autoPlaceShips,
+        checkPlaceShipsState,
         attackMove
     }
 }
