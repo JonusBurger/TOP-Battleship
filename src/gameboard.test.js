@@ -1,35 +1,27 @@
+/**
+ * @jest-environment jsdom
+ */
+
 const Gameboard = require("./gameboard");
-const infoLogger = require("./infoLogger");
 
-describe("Gameboard placeShip", () => {
-    let spy;
-
-    const infoLoggerInstance = infoLogger();
-  
+describe("test Gameboard with document.body", () => {
     beforeEach(() => {
-      // Mock the infoLogger before each test
-      spy = jest.spyOn(infoLoggerInstance, 'updateGameState');
+      // Mock document Body for InfoLogger
+      document.body.innerHTML =
+      '<div class = "gameFrame">' +
+          '<div id="gameState">' +
+          '</div>' +
+      '</div>';
     });
   
-    afterEach(() => {
-      // Clean up the mock after each test
-      spy.mockRestore();
-    });
-
     test("A ship may only palced if it has a valid length", () => {
         const gameboardInstance = Gameboard();
-        spy.mockImplementation(() => true);
-        // const spy = jest.spyOn(infoLoggerInstance, 'updateGameState');
-        spy.mockReturnValue(true);
         expect(gameboardInstance.placeShip(6, [1,1], horizontal = true)).toBeFalsy();
     })
 
 
 test("A ship may only be placed at a valid position", () => {
     const gameboardInstance = Gameboard();
-    // const spy = jest.spyOn(infoLogger.infoLoggerInstance, 'updateGameState');
-    spy.mockImplementation(() => true);
-    spy.mockReturnValue(true);
     expect(gameboardInstance.placeShip(3, [1,1], horizontal = true)).toBeTruthy();
     expect(gameboardInstance.placeShip(3, [1,9], horizontal = false)).toBeFalsy();
 }) 

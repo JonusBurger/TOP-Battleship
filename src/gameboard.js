@@ -134,15 +134,15 @@ function gameboard() {
         
         const id = gameField[x][y];
         if (id === 1) {
-            infoLoggerInstance.updateGameState("Invalid field!")
+            infoLoggerInstance.updateGameState("Invalid field!");
             return false;
         }
         if (id >= 20) {
             ships[MAPSHIPS[id]].hit();
             gameField[x][y] = 1;
-            infoLoggerInstance.updateGameState("Hit a ship!")
+            infoLoggerInstance.updateGameState("Hit a ship!");
             if (ships[MAPSHIPS[id]].isSunk()) {
-                infoLoggerInstance.updateGameState("Ship sunk!")
+                infoLoggerInstance.updateGameState("Ship sunk!");
             }
         } else {
             gameField[x][y] = 2;
@@ -176,12 +176,13 @@ function gameboard() {
     }
 
     function checkIfAllShipsPlaced() {
-        for (let ship of ships) {
+        for (let key in ships) {
+            const ship = ships[key];
             if (!ship) {
                 return false
             }
-            return true
         }
+        return true
     }
 
     return {

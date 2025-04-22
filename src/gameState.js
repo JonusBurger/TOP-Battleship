@@ -32,7 +32,7 @@ function gameState() {
             const ships = activePlayer.gameBoard.getShips();
             for (const [key, ship] of Object.entries(ships)) {
                 if (!ship) {
-                    infoLoggerInstance(`place Ship ${key} (size ${activePlayer.gameBoard.getLengthOfShip(key)})`);
+                    infoLoggerInstance.updateGameState(`place Ship ${key} (size ${activePlayer.gameBoard.getLengthOfShip(key)})`);
                 }
             }
         }

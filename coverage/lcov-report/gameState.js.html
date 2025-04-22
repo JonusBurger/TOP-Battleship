@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.73% </span>
+                <span class="strong">70.49% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>34/61</span>
+                <span class='fraction'>43/61</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">21.42% </span>
+                <span class="strong">42.85% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>6/28</span>
+                <span class='fraction'>12/28</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.66% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>8/12</span>
+                <span class='fraction'>9/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">54.23% </span>
+                <span class="strong">69.49% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>32/59</span>
+                <span class='fraction'>41/59</span>
             </div>
         
             
@@ -238,25 +238,25 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-yes">26x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -329,19 +329,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
@@ -386,14 +386,14 @@ function gameState() {
     
 &nbsp;
     function switchTurn() {
-        activePlayer = activePlayer === player1 ? player2 : <span class="branch-1 cbranch-no" title="branch not covered" >player1;</span>
+        activePlayer = activePlayer === player1 ? player2 : player1;
 &nbsp;
         // Handle Information Flow for Ship Placement
         <span class="missing-if-branch" title="else path not taken" >E</span>if (activeState === 1) {
             const ships = activePlayer.gameBoard.getShips();
             for (const [key, ship] of Object.entries(ships)) {
-                <span class="missing-if-branch" title="else path not taken" >E</span>if (!ship) {
-                    infoLoggerInstance(`place Ship ${key} (size ${activePlayer.gameBoard.getLengthOfShip(key)})`);
+                if (!ship) {
+                    infoLoggerInstance.updateGameState(`place Ship ${key} (size ${activePlayer.gameBoard.getLengthOfShip(key)})`);
                 }
             }
         }
@@ -404,7 +404,7 @@ function gameState() {
     }
 &nbsp;
     function getInactivePlayer() {
-        return Players[0] === activePlayer ? player2 : <span class="branch-1 cbranch-no" title="branch not covered" >player1</span>
+        return Players[0] === activePlayer ? player2 : player1
     }
 &nbsp;
     function getActivePlayerId() {
@@ -476,20 +476,20 @@ function gameState() {
         return GAMESTATES[activeState];
     }
 &nbsp;
-    function <span class="fstat-no" title="function not covered" >attackMove(</span>position) {
-        const playerHit = <span class="cstat-no" title="statement not covered" >getInactivePlayer();</span>
-        const validMove = <span class="cstat-no" title="statement not covered" >playerHit.gameBoard.receiveAttack(position);</span>
+    function attackMove(position) {
+        const playerHit = getInactivePlayer();
+        const validMove = playerHit.gameBoard.receiveAttack(position);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        if (validMove) {</span>
-<span class="cstat-no" title="statement not covered" >            if (playerHit.gameBoard.isOver()) {</span>
-<span class="cstat-no" title="statement not covered" >                activeState = 3;</span>
-<span class="cstat-no" title="statement not covered" >                console.log("Game Over!")</span>
-<span class="cstat-no" title="statement not covered" >                return true</span>
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (validMove) {
+            if (playerHit.gameBoard.isOver()) {
+                activeState = 3;
+                console.log("Game Over!")
+                return true
             }
-<span class="cstat-no" title="statement not covered" >            switchTurn();</span>
+            switchTurn();
         }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        return false</span>
+        return false
     }
 &nbsp;
     return {
@@ -514,7 +514,7 @@ module.exports = gameState;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-04-21T14:42:59.885Z
+                at 2025-04-22T04:56:38.124Z
             </div>
         <script src="prettify.js"></script>
         <script>
