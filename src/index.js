@@ -5,6 +5,7 @@ const eventHandler = require("./eventhandler");
 const eventHandlerInstance = eventHandler();
 
 // NS:
-// -> Implement placement of Ship -> Stuck at gameState palceShip
+// -> correct handling of ship placement
+// -> Fix bug stuck at wrong input
 // -> Implement start Game / abort Game Logic
 // -> Build AI for battleship
