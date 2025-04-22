@@ -40,6 +40,7 @@ function eventHandler() {
                 cell.addEventListener("click", function place(e) {placeShip(e, playerArea.id)})
             })
         }
+        infoLoggerInstance.updateGameAction(gameStateInstance.getActivePlayer().gameBoard.nextShipToPlace());
     }
 
     function startGame() {
@@ -47,10 +48,10 @@ function eventHandler() {
         infoLoggerInstance.updateState(gameStateInstance.getGameState());
         infoLoggerInstance.updateActivePlayer(gameStateInstance.getActivePlayer().name);
         
-        gameStateInstance.autoPlaceShips();
-        infoLoggerInstance.updateState(gameStateInstance.getGameState());
-        infoLoggerInstance.updateActivePlayer(gameStateInstance.getActivePlayer().name);
-        setupAttackHandlers();
+        // gameStateInstance.autoPlaceShips();
+        // infoLoggerInstance.updateState(gameStateInstance.getGameState());
+        // infoLoggerInstance.updateActivePlayer(gameStateInstance.getActivePlayer().name);
+        setupPlaceShipHandlers();
     }
 
     function attackOpponent(e, playerID) {
@@ -86,7 +87,7 @@ function eventHandler() {
         if (!e.currentTarget.classList.contains("gameCell")) {
             return
         }
-        if (playerID === gameStateInstance.getActivePlayerId()) {
+        if (playerID === gameStateInstance.getInactivePlayerId()) {
             infoLoggerInstance.updateGameState("Wrong Player!");
             return
         }
@@ -100,10 +101,11 @@ function eventHandler() {
         }
 
         // CHECK HERE I PLACE SHIP IS FINISHED
-        if (gameStateInstance.checkPlayerShipsState()) {
+        if (gameStateInstance.checkPlaceShipsState()) {
             gameStateInstance.activeState = 2;
             setupAttackHandlers();
-        } else {
+        } 
+        if (TurnSwitch) {
             htmlHandlerInstance.updateEntireField(playerID, gameStateInstance.getActivePlayer(), gameStateInstance.getInactivePlayer());
             infoLoggerInstance.updateState(gameStateInstance.getGameState());
             infoLoggerInstance.updateActivePlayer(gameStateInstance.getActivePlayer().name);

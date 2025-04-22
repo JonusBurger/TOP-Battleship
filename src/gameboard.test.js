@@ -11,6 +11,8 @@ describe("test Gameboard with document.body", () => {
       '<div class = "gameFrame">' +
           '<div id="gameState">' +
           '</div>' +
+          '<div id = "gameAction">' +
+          '</div>' +
       '</div>';
     });
   
@@ -71,10 +73,16 @@ test("Gameboard should return true when all ships have been placed", () => {
     gameboardInstance.placeShip(3, [1,0], horizontal = false);
     gameboardInstance.placeShip(3, [3,0], horizontal = false);
     gameboardInstance.placeShip(2, [5,0], horizontal = false);
-    expect(gameboardInstance.checkIfAllShipsPlaced()).toBeFalsy();
+    expect(gameboardInstance.nextShipToPlace()).not.toBeFalsy();
     gameboardInstance.placeShip(4, [7,0], horizontal = false);
     gameboardInstance.placeShip(5, [9,0], horizontal = false);
-    expect(gameboardInstance.checkIfAllShipsPlaced()).toBeTruthy();
+    expect(gameboardInstance.nextShipToPlace()).toBeFalsy();
+})
+
+test("Gameboard should return the next undefined ship, expected Submarine", () => {
+    const gameboardInstance = Gameboard();
+    gameboardInstance.placeShip(2, [1,0], horizontal = false);
+    expect(gameboardInstance.nextShipToPlace()).toBe("Submarine");
 })
 
 });

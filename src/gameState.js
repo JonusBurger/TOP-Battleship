@@ -60,24 +60,26 @@ function gameState() {
 
     function placeShip(position) {
         let validMove;
-        const ships = activePlayer.gameBoard.getShips();
-        for (const [key, ship] of Object.entries(ships)) {
-            if (!ship) {
-                if (!placeCurser) {
-                    placeCurser = position;
-                    return false
-                }
-                const horizontal = placeCurser[1] > position[1] ? true : false;
-                validMove = activePlayer.gameBoard.placeShip(placeCurser, horizontal);
-                if (validMove) {
-                    switchTurn();
-                    placeCurser = undefined;
-                }
-                
-                return validMove
-            }
+        const ship = activePlayer.gameBoard.nextShipToPlace();
+        if (!ship) {
+            switchTurn();
         }
-        // STUCK HERE WITH LOGIC HOW TO HANDLE CHANGE TO NEXT STATE
+        if (!placeCurser) {
+            placeCurser = position;
+            return false
+        }
+        const horizontal = placeCurser[1] > position[1] ? true : false;
+        validMove = activePlayer.gameBoard.placeShip(
+            activePlayer.gameBoard.getLengthOfShip(ship),
+            placeCurser,
+            horizontal);
+        if (validMove) {
+            infoLoggerInstance.updateGameAction(activePlayer.gameBoard.nextShipToPlace());
+            placeCurser = undefined;
+        }
+        
+        return validMove
+
     }
 
     function autoPlaceShips() {
@@ -104,7 +106,7 @@ function gameState() {
     function checkPlaceShipsState() {
         // return true only when each player has placed all of his ships
         for (let player of Players) {
-            if (!player.gameBoard.checkIfAllShipsPlaced()) {
+            if (player.gameBoard.nextShipToPlace()) {
                 return false
             }
         }

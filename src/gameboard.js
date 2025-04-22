@@ -35,12 +35,15 @@ function gameboard() {
         if (length < 2 || length > 5) {
             return false
         }
-
+        if (typeof(position) === typeof("22")) {
+            position = [parseInt(position[0]), parseInt(position[1])];
+        }
+        
         if (!shipPositionValidator(length, position, horizontal)) {
             return false
         }
 
-
+        
 
         const ship = new Ship(length);
         let shipID= ship.length*10;
@@ -62,6 +65,16 @@ function gameboard() {
         } 
 
         return true
+    }
+    
+    function nextShipToPlace() {
+        for (const [key, ship] of Object.entries(ships)) {
+            if (!ship) {
+                return key
+            }
+        }
+
+        return false
     }
 
     function shipPositionValidator(length, position, horizontal) {
@@ -175,24 +188,15 @@ function gameboard() {
         return ships
     }
 
-    function checkIfAllShipsPlaced() {
-        for (let key in ships) {
-            const ship = ships[key];
-            if (!ship) {
-                return false
-            }
-        }
-        return true
-    }
 
     return {
         placeShip,
+        nextShipToPlace,
         receiveAttack,
         isOver,
         getGameBoard,
         getShips,
         getLengthOfShip,
-        checkIfAllShipsPlaced
     }
 }
 

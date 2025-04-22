@@ -11,6 +11,8 @@ describe("test Gameboard with document.body", () => {
       '<div class = "gameFrame">' +
           '<div id="gameState">' +
           '</div>' +
+          '<div id = "gameAction">' +
+          '</div>' +
       '</div>';
     });
 
@@ -69,5 +71,11 @@ describe("test Gameboard with document.body", () => {
         expect(gameStateInstance.attackMove([2,4])).toBeTruthy();
     })
 
+    test("Gamestate should know when all ships have been placed", () => {
+        const gameStateInstance = gameState();
+        expect(gameStateInstance.checkPlaceShipsState()).toBeFalsy();
+        gameStateInstance.autoPlaceShips();
+        expect(gameStateInstance.checkPlaceShipsState()).toBeTruthy();
+    })
 });
 
