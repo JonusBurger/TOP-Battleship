@@ -1,7 +1,8 @@
 const Player = require("./player");
 const infoLogger = require("./infoLogger");
+const BotUser = require("./botuser"); 
 
-function gameState() {
+function gameState(botPlayer = false) {
     const GAMESTATES = {
         0: "Setup Players",
         1: "Place Ships",
@@ -11,8 +12,14 @@ function gameState() {
 
     let activeState = 0;
 
-    const player1 = new Player("player1");
-    const player2 = new Player("player2");
+    let player1;
+    let player2;
+    player1 = new Player("player1");
+    if (botPlayer) {
+        player2 = new BotUser("player2");
+    } else {
+        player2 = new Player("player2");
+    }
 
     const Players = [player1, player2];
 
@@ -28,6 +35,12 @@ function gameState() {
         activePlayer = activePlayer === player1 ? player2 : player1;
 
         // Handle Information Flow for Ship Placement
+        if (activePlayer.isBot()) {
+            if (activeState === 1) {
+                activePlayer.placeShips();
+            }
+            switchTurn();
+        }
         if (activeState === 1) {
             const ships = activePlayer.gameBoard.getShips();
             for (const [key, ship] of Object.entries(ships)) {

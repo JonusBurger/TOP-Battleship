@@ -93,7 +93,7 @@ function eventHandler() {
     }
 
     function startGame() {
-        gameStateInstance = gameState();
+        gameStateInstance = gameState(botPlayer = true);
         infoLoggerInstance.updateState(gameStateInstance.getGameState());
         infoLoggerInstance.updateActivePlayer(gameStateInstance.getActivePlayer().name);
 
@@ -115,7 +115,7 @@ function eventHandler() {
     }
 
     function resetGame() {
-        gameStateInstance = gameState();
+        gameStateInstance = gameState(botPlayer = true);
         infoLoggerInstance.updateState(gameStateInstance.getGameState());
         htmlHandlerInstance.emptyGameField();
         infoLoggerInstance.updateActivePlayer(gameStateInstance.getActivePlayer().name);

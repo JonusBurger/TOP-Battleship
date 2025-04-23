@@ -31,7 +31,7 @@ function gameboard() {
         }
     }
     
-    function placeShip(length, position, horizontal = false) {
+    function placeShip(length, position, horizontal = false, isBot = false) {
         if (length < 2 || length > 5) {
             return false
         }
@@ -39,7 +39,7 @@ function gameboard() {
             position = [parseInt(position[0]), parseInt(position[1])];
         }
         
-        if (!shipPositionValidator(length, position, horizontal)) {
+        if (!shipPositionValidator(length, position, horizontal, isBot)) {
             return false
         }
 
@@ -77,31 +77,42 @@ function gameboard() {
         return false
     }
 
-    function shipPositionValidator(length, position, horizontal) {
+    function shipPositionValidator(length, position, horizontal, isBot) {
         if (horizontal) {
             if (position[0] + length > FIELDLENGTH) {
-                infoLoggerInstance.updateGameState("ship is out of the field!");
+                if (!isBot) {
+                    infoLoggerInstance.updateGameState("ship is out of the field!");
+                }
+                
                 return false
             }
             for (let i = 0; i < length; i++) {
                 if (!checkGameField([position[0] + i, position[1]])) {
-                    infoLoggerInstance.updateGameState("Ship is too close to another Ship!");
+                    if (!isBot) {
+                        infoLoggerInstance.updateGameState("Ship is too close to another Ship!");
+                    }
                     return false
                 }
             }
         } else {
             if (position[1] + length > FIELDHEIGTH) {
-                infoLoggerInstance.updateGameState("ship is out of the field!");
+                if (!isBot) {
+                    infoLoggerInstance.updateGameState("ship is out of the field!");
+                }
                 return false
             }
             for (let i = 0; i < length; i++) {
                 if (!checkGameField([position[0], position[1] + i])) {
-                    infoLoggerInstance.updateGameState("Ship is too close to another Ship!");
+                    if (!isBot) {
+                        infoLoggerInstance.updateGameState("Ship is too close to another Ship!");
+                    }
                     return false
                 }
             }
         } if (position[0] >= FIELDLENGTH || position[1] >= FIELDHEIGTH) {
-            infoLoggerInstance.updateGameState("Ship is out of bounds!");
+            if (!isBot) {
+                infoLoggerInstance.updateGameState("Ship is out of bounds!");
+            }
             return false
         }
 
