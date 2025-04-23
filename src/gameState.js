@@ -106,6 +106,11 @@ function gameState() {
                 return false
             }
         }
+
+        // changes GameState if currently in placeShip
+        if (activeState === 1) {
+            activeState = 2;
+        }
         return true
     }
 

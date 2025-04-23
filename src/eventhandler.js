@@ -70,6 +70,22 @@ function eventHandler() {
         infoLoggerInstance.updateGameAction(gameStateInstance.getActivePlayer().gameBoard.nextShipToPlace());
     }
 
+    function removeAttackHandlers() {
+        const playerAreas = document.querySelectorAll(".playerArea");
+
+        for (let playerArea of playerAreas) {
+            const gameCells = playerArea.querySelectorAll(".gameCell");
+            gameCells.forEach((cell) => {
+                // First remove any existing attack handlers
+                const attackHandler = attackHandlers.get(cell);
+                if (attackHandler) {
+                    cell.removeEventListener("click", attackHandler);
+                    attackHandlers.delete(cell);
+                }
+            })
+        }
+    }
+
     function startGame() {
         gameStateInstance = gameState();
         infoLoggerInstance.updateState(gameStateInstance.getGameState());
@@ -90,18 +106,24 @@ function eventHandler() {
             infoLoggerInstance.updateGameState("Wrong Player!");
             return
         }
-
+        // Handling gameEnd
+        let gameOver = false
         // Method for fetching ID of field based on Class
         for (let classElement of e.currentTarget.classList) {
             if (classElement.includes("fieldPosition_")) {
                 fieldID = classElement.slice(14);
-                gameStateInstance.attackMove(fieldID);
+                gameOver = gameStateInstance.attackMove(fieldID);
             }
         }
-        htmlHandlerInstance.updateEntireField(playerID, gameStateInstance.getActivePlayer(), gameStateInstance.getInactivePlayer());
         infoLoggerInstance.updateState(gameStateInstance.getGameState());
-        infoLoggerInstance.updateActivePlayer(gameStateInstance.getActivePlayer().name);
-        htmlHandlerInstance.displayPlayerShips(gameStateInstance.getActivePlayer(), playerID);
+        if (gameOver) {
+            removeAttackHandlers();
+        } else {
+            htmlHandlerInstance.updateEntireField(playerID, gameStateInstance.getActivePlayer(), gameStateInstance.getInactivePlayer());
+            infoLoggerInstance.updateActivePlayer(gameStateInstance.getActivePlayer().name);
+            htmlHandlerInstance.displayPlayerShips(gameStateInstance.getActivePlayer(), playerID);
+        }
+
     }
 
     function placeShip(e, playerID) {
@@ -129,16 +151,16 @@ function eventHandler() {
 
         // CHECK HERE I PLACE SHIP IS FINISHED
         if (gameStateInstance.checkPlaceShipsState()) {
-            gameStateInstance.activeState = 2;
+            console.log(gameStateInstance.getGameState())
             setupAttackHandlers();
         } 
-        htmlHandlerInstance.updateEntireField(playerID, gameStateInstance.getActivePlayer(), gameStateInstance.getInactivePlayer());
-        infoLoggerInstance.updateState(gameStateInstance.getGameState());
-        infoLoggerInstance.updateActivePlayer(gameStateInstance.getActivePlayer().name);
-        htmlHandlerInstance.displayPlayerShips(gameStateInstance.getActivePlayer(), playerID);
         if (!nextShip) {
             gameStateInstance.switchTurn();
         }  
+        htmlHandlerInstance.updateEntireField(gameStateInstance.getActivePlayerId(), gameStateInstance.getActivePlayer(), gameStateInstance.getInactivePlayer());
+        infoLoggerInstance.updateState(gameStateInstance.getGameState());
+        infoLoggerInstance.updateActivePlayer(gameStateInstance.getActivePlayer().name);
+        htmlHandlerInstance.displayPlayerShips(gameStateInstance.getActivePlayer(), gameStateInstance.getActivePlayerId());
     }
     
 }
