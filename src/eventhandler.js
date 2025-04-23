@@ -22,6 +22,8 @@ function eventHandler() {
         setupAttackHandlers();
 
         const playerAreas = document.querySelectorAll(".playerArea");
+        const btnTurnShip = document.getElementById("btnTurnShip");
+        btnTurnShip.classList.add("deactive");
 
         for (let playerArea of playerAreas) {
             const gameCells = playerArea.querySelectorAll(".gameCell");
@@ -34,6 +36,8 @@ function eventHandler() {
 
     function setupPlaceShipHandlers() {
         const playerAreas = document.querySelectorAll(".playerArea");
+        const btnTurnShip = document.getElementById("turnShipDiv");
+        btnTurnShip.classList.remove("deactive");
         for (let playerArea of playerAreas) {
             const gameCells = playerArea.querySelectorAll(".gameCell");
             gameCells.forEach((cell) => {
@@ -91,12 +95,14 @@ function eventHandler() {
             infoLoggerInstance.updateGameState("Wrong Player!");
             return
         }
+        // Fetching state of turnShipButton
+        const turnShipBtn = document.getElementById("btnTurnShip");
         // Method for fetching ID of field based on Class
         let TurnSwitch
         for (let classElement of e.currentTarget.classList) {
             if (classElement.includes("fieldPosition_")) {
                 fieldID = classElement.slice(14);
-                TurnSwitch = gameStateInstance.placeShip(fieldID);
+                TurnSwitch = gameStateInstance.placeShip(fieldID, turnShipBtn.checked);
             }
         }
 

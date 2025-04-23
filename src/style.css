@@ -173,7 +173,7 @@ header {
 .infoSection {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 120px;
+    grid-template-rows: 1fr 200px 120px;
 }
 .btns {
     display: flex;
@@ -303,4 +303,18 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.hidden {
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+  }
+
+input[type=checkbox]:checked+label {
+    color: var(--secondary-color);
+}
+
+.deactive {
+    display: none;
 }

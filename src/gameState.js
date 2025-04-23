@@ -58,24 +58,18 @@ function gameState() {
         return Players
     }
 
-    function placeShip(position) {
+    function placeShip(position, horizontal) {
         let validMove;
         const ship = activePlayer.gameBoard.nextShipToPlace();
         if (!ship) {
             switchTurn();
         }
-        if (!placeCurser) {
-            placeCurser = position;
-            return false
-        }
-        const horizontal = placeCurser[1] > position[1] ? true : false;
         validMove = activePlayer.gameBoard.placeShip(
             activePlayer.gameBoard.getLengthOfShip(ship),
-            placeCurser,
+            position,
             horizontal);
         if (validMove) {
             infoLoggerInstance.updateGameAction(activePlayer.gameBoard.nextShipToPlace());
-            placeCurser = undefined;
         }
         
         return validMove
