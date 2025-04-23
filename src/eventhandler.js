@@ -120,6 +120,8 @@ function eventHandler() {
         htmlHandlerInstance.emptyGameField();
         infoLoggerInstance.updateActivePlayer(gameStateInstance.getActivePlayer().name);
         htmlHandlerInstance.removePlayerShips();
+        htmlHandlerInstance.emptyGameAction();
+        htmlHandlerInstance.emptyGameState();
 
     }
     function attackOpponent(e, playerID) {
@@ -134,6 +136,10 @@ function eventHandler() {
             infoLoggerInstance.updateGameState("Wrong Player!");
             return
         }
+        // Update action fields
+        htmlHandlerInstance.emptyGameAction();
+        htmlHandlerInstance.emptyGameState();
+
         // Handling gameEnd
         let gameOver = false
         // Method for fetching ID of field based on Class
@@ -177,14 +183,16 @@ function eventHandler() {
             }
         }
 
-        // CHECK HERE I PLACE SHIP IS FINISHED
-        if (gameStateInstance.checkPlaceShipsState()) {
-            console.log(gameStateInstance.getGameState())
-            setupAttackHandlers();
-        } 
         if (!nextShip) {
             gameStateInstance.switchTurn();
+            infoLoggerInstance.updateGameAction(gameStateInstance.getActivePlayer().gameBoard.nextShipToPlace())
+            htmlHandlerInstance.emptyGameState();
         }  
+        // CHECK HERE I PLACE SHIP IS FINISHED
+        if (gameStateInstance.checkPlaceShipsState()) {
+            setupAttackHandlers();
+            htmlHandlerInstance.emptyGameAction();
+        } 
         htmlHandlerInstance.updateEntireField(gameStateInstance.getActivePlayerId(), gameStateInstance.getActivePlayer(), gameStateInstance.getInactivePlayer());
         infoLoggerInstance.updateState(gameStateInstance.getGameState());
         infoLoggerInstance.updateActivePlayer(gameStateInstance.getActivePlayer().name);

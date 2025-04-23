@@ -166,9 +166,18 @@ function htmlHandler() {
         gameAction.innerHTML = gameActionInfo;
     }
 
+    function emptyGameAction() {
+        const gameAction = document.getElementById("gameAction");
+        gameAction.innerHTML = "";        
+    }
+
     function displayGameState(gameStateInfo) {
         const gameState = document.getElementById("gameState");
         gameState.innerHTML = gameStateInfo;
+    }
+    function emptyGameState() {
+        const gameState = document.getElementById("gameState");
+        gameState.innerHTML = "";      
     }
 
     function updateButton(value) {
@@ -187,7 +196,9 @@ function htmlHandler() {
         displayPlayerShips,
         removePlayerShips,
         displayGameState,
+        emptyGameState,
         displayGameAction,
+        emptyGameAction,
         updateButton
     }
 }
