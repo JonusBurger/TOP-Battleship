@@ -16,10 +16,13 @@ function eventHandler() {
         startBtn.addEventListener("click", () => {startGame()})
     }
 
+    // Store references to the handler functions
+    const attackHandlers = new WeakMap();
+    const placeShipHandlers = new WeakMap();
+
     function setupAttackHandlers() {
         infoLoggerInstance.updateState(gameStateInstance.getGameState());
         infoLoggerInstance.updateActivePlayer(gameStateInstance.getActivePlayer().name);
-        setupAttackHandlers();
 
         const playerAreas = document.querySelectorAll(".playerArea");
         const btnTurnShip = document.getElementById("btnTurnShip");
@@ -28,8 +31,17 @@ function eventHandler() {
         for (let playerArea of playerAreas) {
             const gameCells = playerArea.querySelectorAll(".gameCell");
             gameCells.forEach((cell) => {
-                // cell.removeEventListener("click", place);
-                cell.addEventListener("click", function attack(e) { attackOpponent(e, playerArea.id)})
+                // First remove any existing placeShip event listeners
+                const placeHandler = placeShipHandlers.get(cell);
+                if (placeHandler) {
+                    cell.removeEventListener("click", placeHandler);
+                    placeShipHandlers.delete(cell);
+                }
+                
+                // Create and store new attack handler
+                const attackHandler = (e) => attackOpponent(e, playerArea.id);
+                cell.addEventListener("click", attackHandler);
+                attackHandlers.set(cell, attackHandler);
             })
         }
     }
@@ -38,10 +50,21 @@ function eventHandler() {
         const playerAreas = document.querySelectorAll(".playerArea");
         const btnTurnShip = document.getElementById("turnShipDiv");
         btnTurnShip.classList.remove("deactive");
+        
         for (let playerArea of playerAreas) {
             const gameCells = playerArea.querySelectorAll(".gameCell");
             gameCells.forEach((cell) => {
-                cell.addEventListener("click", function place(e) {placeShip(e, playerArea.id)})
+                // First remove any existing attack handlers
+                const attackHandler = attackHandlers.get(cell);
+                if (attackHandler) {
+                    cell.removeEventListener("click", attackHandler);
+                    attackHandlers.delete(cell);
+                }
+                
+                // Create and store new placeShip handler
+                const placeHandler = (e) => placeShip(e, playerArea.id);
+                cell.addEventListener("click", placeHandler);
+                placeShipHandlers.set(cell, placeHandler);
             })
         }
         infoLoggerInstance.updateGameAction(gameStateInstance.getActivePlayer().gameBoard.nextShipToPlace());
@@ -51,10 +74,7 @@ function eventHandler() {
         gameStateInstance = gameState();
         infoLoggerInstance.updateState(gameStateInstance.getGameState());
         infoLoggerInstance.updateActivePlayer(gameStateInstance.getActivePlayer().name);
-        
-        // gameStateInstance.autoPlaceShips();
-        // infoLoggerInstance.updateState(gameStateInstance.getGameState());
-        // infoLoggerInstance.updateActivePlayer(gameStateInstance.getActivePlayer().name);
+
         setupPlaceShipHandlers();
     }
 
@@ -70,6 +90,7 @@ function eventHandler() {
             infoLoggerInstance.updateGameState("Wrong Player!");
             return
         }
+
         // Method for fetching ID of field based on Class
         for (let classElement of e.currentTarget.classList) {
             if (classElement.includes("fieldPosition_")) {
@@ -98,11 +119,11 @@ function eventHandler() {
         // Fetching state of turnShipButton
         const turnShipBtn = document.getElementById("btnTurnShip");
         // Method for fetching ID of field based on Class
-        let TurnSwitch
+        let nextShip
         for (let classElement of e.currentTarget.classList) {
             if (classElement.includes("fieldPosition_")) {
                 fieldID = classElement.slice(14);
-                TurnSwitch = gameStateInstance.placeShip(fieldID, turnShipBtn.checked);
+                nextShip = gameStateInstance.placeShip(fieldID, turnShipBtn.checked);
             }
         }
 
@@ -111,13 +132,13 @@ function eventHandler() {
             gameStateInstance.activeState = 2;
             setupAttackHandlers();
         } 
-        if (TurnSwitch) {
-            htmlHandlerInstance.updateEntireField(playerID, gameStateInstance.getActivePlayer(), gameStateInstance.getInactivePlayer());
-            infoLoggerInstance.updateState(gameStateInstance.getGameState());
-            infoLoggerInstance.updateActivePlayer(gameStateInstance.getActivePlayer().name);
-            htmlHandlerInstance.displayPlayerShips(gameStateInstance.getActivePlayer(), playerID);
-        }
- 
+        htmlHandlerInstance.updateEntireField(playerID, gameStateInstance.getActivePlayer(), gameStateInstance.getInactivePlayer());
+        infoLoggerInstance.updateState(gameStateInstance.getGameState());
+        infoLoggerInstance.updateActivePlayer(gameStateInstance.getActivePlayer().name);
+        htmlHandlerInstance.displayPlayerShips(gameStateInstance.getActivePlayer(), playerID);
+        if (!nextShip) {
+            gameStateInstance.switchTurn();
+        }  
     }
     
 }

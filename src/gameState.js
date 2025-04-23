@@ -59,20 +59,22 @@ function gameState() {
     }
 
     function placeShip(position, horizontal) {
-        let validMove;
         const ship = activePlayer.gameBoard.nextShipToPlace();
-        if (!ship) {
-            switchTurn();
-        }
-        validMove = activePlayer.gameBoard.placeShip(
+        // if (!ship) {
+        //     switchTurn();
+        // }
+        const validMove = activePlayer.gameBoard.placeShip(
             activePlayer.gameBoard.getLengthOfShip(ship),
             position,
             horizontal);
+        const nextShip = activePlayer.gameBoard.nextShipToPlace();
         if (validMove) {
-            infoLoggerInstance.updateGameAction(activePlayer.gameBoard.nextShipToPlace());
+            infoLoggerInstance.updateGameAction(nextShip);
         }
-        
-        return validMove
+        if (nextShip) {
+            return activePlayer.gameBoard.getLengthOfShip(nextShip);
+        }
+        return false
 
     }
 
