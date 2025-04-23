@@ -79,7 +79,7 @@ function gameboard() {
 
     function shipPositionValidator(length, position, horizontal) {
         if (horizontal) {
-            if (position[0] + length >= FIELDLENGTH) {
+            if (position[0] + length > FIELDLENGTH) {
                 infoLoggerInstance.updateGameState("ship is out of the field!");
                 return false
             }
@@ -90,7 +90,7 @@ function gameboard() {
                 }
             }
         } else {
-            if (position[1] + length >= FIELDHEIGTH) {
+            if (position[1] + length > FIELDHEIGTH) {
                 infoLoggerInstance.updateGameState("ship is out of the field!");
                 return false
             }

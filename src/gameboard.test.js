@@ -14,6 +14,7 @@ describe("test Gameboard with document.body", () => {
           '<div id = "gameAction">' +
           '</div>' +
       '</div>';
+
     });
   
     test("A ship may only palced if it has a valid length", () => {
@@ -83,6 +84,11 @@ test("Gameboard should return the next undefined ship, expected Submarine", () =
     const gameboardInstance = Gameboard();
     gameboardInstance.placeShip(2, [1,0], horizontal = false);
     expect(gameboardInstance.nextShipToPlace()).toBe("Submarine");
+})
+
+test ("A ship should be placed at the outer end while still being okay", () => {
+    const gameboardInstance = Gameboard();
+    expect(gameboardInstance.placeShip(3, [0,7], horizontal = false)).toBeTruthy();
 })
 
 });

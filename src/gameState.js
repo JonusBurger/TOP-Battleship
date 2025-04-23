@@ -125,7 +125,6 @@ function gameState() {
         if (validMove) {
             if (playerHit.gameBoard.isOver()) {
                 activeState = 3;
-                console.log("Game Over!")
                 return true
             }
             switchTurn();

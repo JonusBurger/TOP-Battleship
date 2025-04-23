@@ -7,25 +7,31 @@ function eventHandler() {
     const htmlHandlerInstance = htmlHandler();
     htmlHandlerInstance.initGameField();
     const infoLoggerInstance = infoLogger();
-    setupHandlers();
-
     
-
-    function setupHandlers() {
-        const startBtn = document.getElementById("btnStartGame");
-        startBtn.addEventListener("click", () => {startGame()})
-    }
 
     // Store references to the handler functions
     const attackHandlers = new WeakMap();
     const placeShipHandlers = new WeakMap();
+    const starGameHandlers = new WeakMap();
+    const resetGameHandlers = new WeakMap();
+
+    setupHandlers();
+
+    function setupHandlers() {
+        const startBtn = document.getElementById("btnStartGame");
+
+        // setup Handler for letter removal
+        const startGameHandler = () => startGame();
+        startBtn.addEventListener("click", startGameHandler);
+        starGameHandlers.set(startBtn, startGameHandler);
+    }
 
     function setupAttackHandlers() {
         infoLoggerInstance.updateState(gameStateInstance.getGameState());
         infoLoggerInstance.updateActivePlayer(gameStateInstance.getActivePlayer().name);
 
         const playerAreas = document.querySelectorAll(".playerArea");
-        const btnTurnShip = document.getElementById("btnTurnShip");
+        const btnTurnShip = document.getElementById("turnShipDiv");
         btnTurnShip.classList.add("deactive");
 
         for (let playerArea of playerAreas) {
@@ -92,8 +98,30 @@ function eventHandler() {
         infoLoggerInstance.updateActivePlayer(gameStateInstance.getActivePlayer().name);
 
         setupPlaceShipHandlers();
+        setupResetGameHandler();
     }
 
+    function setupResetGameHandler() {
+        const startBtn = document.getElementById("btnStartGame");
+        // remove existing startGame event listeners
+        const startGameHandler = starGameHandlers.get(startBtn);
+        startBtn.removeEventListener("click", startGameHandler);
+
+        const resetGameHandler = () => resetGame();
+        startBtn.addEventListener("click", resetGameHandler);
+        resetGameHandlers.set(startBtn, resetGameHandler);       
+
+        htmlHandlerInstance.updateButton("Restart");
+    }
+
+    function resetGame() {
+        gameStateInstance = gameState();
+        infoLoggerInstance.updateState(gameStateInstance.getGameState());
+        htmlHandlerInstance.emptyGameField();
+        infoLoggerInstance.updateActivePlayer(gameStateInstance.getActivePlayer().name);
+        htmlHandlerInstance.removePlayerShips();
+
+    }
     function attackOpponent(e, playerID) {
         if (!gameStateInstance.getGameState() === "Attack opponent!") {
             infoLoggerInstance.updateGameState("Wrong Game State!");

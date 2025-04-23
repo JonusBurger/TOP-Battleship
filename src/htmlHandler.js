@@ -39,7 +39,7 @@ function htmlHandler() {
     }
 
     function displayEnemyField(playerID, enemyPlayer) {
-        const playerAreas = document.querySelectorAll(".playerArea")
+        const playerAreas = document.querySelectorAll(".playerArea");
         for (let playerArea of playerAreas) {
             if (playerArea.id != playerID) {
                 const gameField = enemyPlayer.getGameBoard();
@@ -78,6 +78,24 @@ function htmlHandler() {
                 }
             }
         }
+    }
+
+    function emptyGameField() {
+        const playerAreas = document.querySelectorAll(".playerArea");
+        for (let playerArea of playerAreas) {
+            const allCells = document.querySelectorAll(".gameCell");
+            for (const cell of allCells) {
+                cell.innerHTML = "";
+            
+                if (cell.classList.contains("damage")) {
+                    cell.classList.remove("damage");
+                }
+                if (cell.classList.contains("ship")) {
+                    cell.classList.remove("ship");
+                }
+            }
+        }
+
     }
 
     function updateActivePlayerBanner(player, state) {
@@ -135,6 +153,14 @@ function htmlHandler() {
         }
     }
 
+    function removePlayerShips() {
+        const playerAreas = document.querySelectorAll(".playerArea");
+        for (let playerArea of playerAreas) {
+            const shipFrame = playerArea.querySelector(".shipFrame");
+            shipFrame.replaceChildren();
+        }
+    }
+
     function displayGameAction(gameActionInfo) {
         const gameAction = document.getElementById("gameAction");
         gameAction.innerHTML = gameActionInfo;
@@ -145,16 +171,24 @@ function htmlHandler() {
         gameState.innerHTML = gameStateInfo;
     }
 
+    function updateButton(value) {
+        const startBtn = document.getElementById("btnStartGame");
+        startBtn.innerHTML = value;
+    }
+
     return {
         initGameField,
         updateGameField,
         updateEntireField,
         updateActivePlayer,
+        emptyGameField,
         updateStateInfo,
         updateActivePlayerBanner,
         displayPlayerShips,
+        removePlayerShips,
         displayGameState,
-        displayGameAction
+        displayGameAction,
+        updateButton
     }
 }
 
