@@ -116,12 +116,15 @@ function eventHandler() {
 
     function resetGame() {
         gameStateInstance = gameState(botPlayer = true);
+        console.log(gameStateInstance.getActivePlayer())
         infoLoggerInstance.updateState(gameStateInstance.getGameState());
         htmlHandlerInstance.emptyGameField();
         infoLoggerInstance.updateActivePlayer(gameStateInstance.getActivePlayer().name);
         htmlHandlerInstance.removePlayerShips();
         htmlHandlerInstance.emptyGameAction();
         htmlHandlerInstance.emptyGameState();
+
+        setupPlaceShipHandlers();
 
     }
     function attackOpponent(e, playerID) {
