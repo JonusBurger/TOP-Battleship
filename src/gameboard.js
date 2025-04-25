@@ -157,8 +157,8 @@ function gameboard() {
         let y = position[1]; 
         
         const id = gameField[x][y];
-        if (id === 1) {
-            infoLoggerInstance.updateGameState("Invalid field!");
+        if (id === 1 || id === 2) {
+            infoLoggerInstance.updateGameState("Field already attacked!");
             return false;
         }
         if (id >= 20) {

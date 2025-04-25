@@ -153,9 +153,9 @@ function eventHandler() {
         if (gameOver) {
             removeAttackHandlers();
         } else {
-            htmlHandlerInstance.updateEntireField(playerID, gameStateInstance.getActivePlayer(), gameStateInstance.getInactivePlayer());
+            htmlHandlerInstance.updateEntireField(gameStateInstance.getActivePlayerId(), gameStateInstance.getActivePlayer(), gameStateInstance.getInactivePlayer());
             infoLoggerInstance.updateActivePlayer(gameStateInstance.getActivePlayer().name);
-            htmlHandlerInstance.displayPlayerShips(gameStateInstance.getActivePlayer(), playerID);
+            htmlHandlerInstance.displayPlayerShips(gameStateInstance.getActivePlayer(), gameStateInstance.getActivePlayerId());
         }
 
     }

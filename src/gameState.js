@@ -38,8 +38,11 @@ function gameState(botPlayer = false) {
         if (activePlayer.isBot()) {
             if (activeState === 1) {
                 activePlayer.placeShips();
+                switchTurn();
             }
-            switchTurn();
+            if (activeState === 2) {
+                attackMove(activePlayer.getAttackMove());
+            }
         }
         if (activeState === 1) {
             const ships = activePlayer.gameBoard.getShips();
