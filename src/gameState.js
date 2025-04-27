@@ -76,9 +76,6 @@ function gameState(botPlayer = false) {
 
     function placeShip(position, horizontal) {
         const ship = activePlayer.gameBoard.nextShipToPlace();
-        // if (!ship) {
-        //     switchTurn();
-        // }
         const validMove = activePlayer.gameBoard.placeShip(
             activePlayer.gameBoard.getLengthOfShip(ship),
             position,
