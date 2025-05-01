@@ -15,6 +15,9 @@ function gameState(botPlayer = false) {
     let player1;
     let player2;
     player1 = new Player("player1");
+
+    // needed for handling smart AI
+    let lastMove;
     if (botPlayer) {
         player2 = new BotUser("player2");
     } else {
@@ -41,7 +44,7 @@ function gameState(botPlayer = false) {
                 switchTurn();
             }
             if (activeState === 2) {
-                attackMove(activePlayer.getAttackMove());
+                attackMove(activePlayer.getAttackMove(lastMove));
             }
         }
         if (activeState === 1) {
