@@ -17,7 +17,7 @@ function gameState(botPlayer = false) {
     player1 = new Player("player1");
 
     // needed for handling smart AI
-    let lastMove;
+    let lastMoves = [];
     if (botPlayer) {
         player2 = new BotUser("player2");
     } else {
@@ -44,7 +44,14 @@ function gameState(botPlayer = false) {
                 switchTurn();
             }
             if (activeState === 2) {
-                attackMove(activePlayer.getAttackMove(lastMove));
+                let botMove = activePlayer.getAttackMove(lastMoves);
+                attackMove(botMove);
+                const result = infoLoggerInstance.getGameState();
+                if (result === "Hit a ship!") {
+                    lastMoves.push(botMove);
+                } else if (result === "Ship sunk!") {
+                    lastMoves = [];
+                }
             }
         }
         if (activeState === 1) {

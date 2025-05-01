@@ -175,6 +175,11 @@ function htmlHandler() {
         const gameState = document.getElementById("gameState");
         gameState.innerHTML = gameStateInfo;
     }
+
+    function getGameState() {
+        const gameState = document.getElementById("gameState")
+        return gameState.innerHTML
+    }
     function emptyGameState() {
         const gameState = document.getElementById("gameState");
         gameState.innerHTML = "";      
@@ -196,6 +201,7 @@ function htmlHandler() {
         displayPlayerShips,
         removePlayerShips,
         displayGameState,
+        getGameState,
         emptyGameState,
         displayGameAction,
         emptyGameAction,

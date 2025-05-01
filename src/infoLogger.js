@@ -11,6 +11,10 @@ function infoLogger() {
         htmlHandlerInstance.displayGameState(info);
     }
 
+    function getGameState() {
+        return htmlHandlerInstance.getGameState();
+    }
+
     function updateActivePlayer(player) {
         htmlHandlerInstance.updateActivePlayer(player);
     }
@@ -27,6 +31,7 @@ function infoLogger() {
     return {
         updateGameAction,
         updateGameState,
+        getGameState,
         updateActivePlayer,
         updateState,
         emptyLogger

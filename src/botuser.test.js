@@ -18,9 +18,15 @@ test("A bot should never attack the same position twice", () => {
 
 test("A bot should return a move that is close to the previous move if a ship as hit", () => {
     const botUserPlayer = new botUser("botTester");
-    const move = botUserPlayer.getAttackMove([2,1]);
+    const move = botUserPlayer.getAttackMove([[2,1]]);
     expect(move[0]).toBeGreaterThanOrEqual(1);
     expect(move[0]).toBeLessThan(4);
     expect(move[1]).toBeGreaterThanOrEqual(0);
     expect(move[1]).toBeLessThan(3);
+})
+
+test("A bot should return a move that is next to the previous moves if a ship was hit", () => {
+    const botUserPlayer = new botUser("botTester");
+    const move = botUserPlayer.getAttackMove([[2,1]]);
+    expect(botUserPlayer.getAttackMove([[2,1], [3,1]])).toEqual([4,1]);
 })
